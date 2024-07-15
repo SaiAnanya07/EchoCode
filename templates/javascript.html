@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Simple JavaScript Editor</title>
+    <link
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+  </head>
+  <body>
+    <div class="container mt-5">
+      <div class="row">
+        <div class="col-md-12">
+          <textarea
+            id="codeEditor"
+            class="form-control"
+            rows="10"
+            placeholder="Write your JavaScript code here..."
+          ></textarea>
+          <button id="runButton" class="btn btn-primary mt-3">Run</button>
+          <textarea
+            id="outputArea"
+            class="form-control mt-3"
+            rows="5"
+            readonly
+          ></textarea>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      $(document).ready(function () {
+        $("#runButton").click(function () {
+          try {
+            const userCode = $("#codeEditor").val();
+            const output = eval(userCode); // Using eval for simplicity, be cautious of security risks
+            $("#outputArea").val(output);
+          } catch (error) {
+            $("#outputArea").val("Error: " + error);
+          }
+        });
+      });
+    </script>
+  </body>
+</html>

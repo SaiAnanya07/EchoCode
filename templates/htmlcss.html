@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Simple HTML and CSS Editor</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <style>
+      textarea {
+        width: 100%;
+        margin-bottom: 10px;
+      }
+      iframe {
+        width: 100%;
+        height: 500px;
+        border: 1px solid #ccc;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container py-5">
+      <h1 class="mb-4">Simple HTML and CSS Editor</h1>
+      <div class="row">
+        <div class="col-md-6">
+          <h2>HTML</h2>
+          <textarea id="htmlEditor" class="form-control" rows="10">
+<h1>Hello, World!</h1></textarea
+          >
+        </div>
+        <div class="col-md-6">
+          <h2>CSS</h2>
+          <textarea id="cssEditor" class="form-control" rows="10">
+body { background-color: lightblue; }</textarea
+          >
+        </div>
+      </div>
+      <button id="runButton" class="btn btn-primary my-3">Run/Preview</button>
+      <iframe id="previewWindow"></iframe>
+    </div>
+
+    <script>
+      document
+        .getElementById("runButton")
+        .addEventListener("click", function () {
+          var htmlCode = document.getElementById("htmlEditor").value;
+          var cssCode = document.getElementById("cssEditor").value;
+          var fullHtml = `
+                <!DOCTYPE html>
+                <html lang="en">
+                <head>
+                    <meta charset="UTF-8">
+                    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                    <style>
+                        ${cssCode}
+                    </style>
+                </head>
+                <body>
+                    ${htmlCode}
+                </body>
+                </html>
+            `;
+          var blob = new Blob([fullHtml], { type: "text/html" });
+          var url = URL.createObjectURL(blob);
+          document.getElementById("previewWindow").src = url;
+        });
+    </script>
+  </body>
+</html>
